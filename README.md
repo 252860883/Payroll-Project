@@ -4,8 +4,8 @@
 ## 1.默认电话号码字段点击会触发系统拨号
 从网上查到可以通过添加meta头部标签来取消默认的识别电话号、邮箱等事件
 <pre>
-    <meta name="format-detection" content="telephone=no" />  
-    <meta http-equiv="x-rim-auto-match" content="none">
+    &ltmeta name="format-detection" content="telephone=no" />  
+    &ltmeta http-equiv="x-rim-auto-match" content="none">
 </pre>
 ## 2.safari浏览器有默认的样式效果
 safari浏览器对于input标签设定有默认的事件，该浏览器实质上使用的是 webkit 内核，所以在 input标签的css样式里面添加语句
