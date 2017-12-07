@@ -82,6 +82,22 @@ export function fetch(url, params) {
 }
 </pre>
 
+## 5.移动端ios下触发input再点击其他区域无法失去焦点
+在移动端的情况下，点击input时输入文字再点击确定按钮无法失去焦点，键盘依然存在.解决办法：
+<pre>
+//修复ios下点击其他区域 input不会失去焦点问题
+    window.onload = function() {  
+        document.querySelector('body').addEventListener('touchend', function(e) {  
+            if(e.target.tagName.toLowerCase() != 'input') {  
+              var inputLists=document.getElementsByTagName('input');
+              for(var i=0;i<inputLists.length;i++){
+                inputLists[i].blur();
+              }  
+            }  
+        });  
+    }
+</pre>
+
 
 
 
