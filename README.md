@@ -90,7 +90,7 @@ export function fetch(url, params) {
         document.querySelector('body').addEventListener('touchend', function(e) {  
             if(e.target.tagName.toLowerCase() != 'input') {  
               var inputLists=document.getElementsByTagName('input');
-              for(var i=0;i<inputLists.length;i++){
+              for(var i=0;i&ltinputLists.length;i++){
                 inputLists[i].blur();
               }  
             }  
