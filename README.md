@@ -104,7 +104,7 @@ export function fetch(url, params) {
 <pre>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 </pre>  
-大佬一说引入文件错了，恍然大悟，错就错在了这个 http协议啊。因为ios的安全拦截只支持https的安全链接，so...
+大佬一说引入文件错了，恍然大悟，错就错在了这个 http协议啊。因为ios的安全拦截只支持https的安全链接，so...  
 更正以后：
 <pre>
 <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
