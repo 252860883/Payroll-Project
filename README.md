@@ -110,6 +110,7 @@ export function fetch(url, params) {
 <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 </pre>
 
+## 7.子组件和父组件
 
 
 
