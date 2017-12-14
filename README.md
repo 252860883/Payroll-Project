@@ -118,7 +118,5 @@ this.$emit("input", this.realYear + "年" + this.realMonth + "月");
 
 //父组件中
 <din-date v-model="date"></din-date>
-
 ```
-
 
