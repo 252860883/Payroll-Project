@@ -111,6 +111,14 @@ export function fetch(url, params) {
 </pre>
 
 ## 7.子组件和父组件
+```js
+//子组件中
+//$emit自定义input事件，传递给父组件
+this.$emit("input", this.realYear + "年" + this.realMonth + "月");
 
+//父组件中
+<din-date v-model="date"></din-date>
+
+```
 
 
