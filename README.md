@@ -123,4 +123,50 @@ this.$emit("input", this.realYear + "年" + this.realMonth + "月");
 ## 8.弹框模糊
 部分居中的弹窗模糊，  分析原因是在居中对齐时，使用了transform:translate(-50%,-50%);如果碰到计算50%的结果刚好是.5像素的时候，会导致Dom内的内容模糊。由于项目是兼容ie11+,所以这里可以使用flex布局实现居中对齐。
 
-
+## 9.实现文本双行超出显示省略号
+项目里有这样一个需求，用户上传的文本过长时超出部分未做判断，导致显示错乱。接到这样的bug我是崩溃的，因为前期并没有涉及这个需求，后期再改css时真的酸爽极了，因为用户自定义的数据实在太多了，所以就要狂加css来做限制了...  
+  
+  
+首先查询到，单行隐藏的实现很简单
+```
+.more-text-cut {
+  overflow: hidden; /*自动隐藏文字*/
+  text-overflow: ellipsis; /*文字隐藏后添加省略号*/
+  white-space: nowrap; /*强制不换行*/
+}
+```
+但是双行超出显示省略号真的是很少见啊，不着急，网上一查解决了,因为用的webpack打包，还涉及到了-webkit-box-orient消失的问题：
+```
+.double-row {
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical; //如果直接写，webpack编译后此属性消失，需要上下两个注释包裹
+  /* autoprefixer: on */
+  -webkit-line-clamp: 2; //显示两行
+  overflow: hidden;
+  word-break: break-all; //单词折断
+  line-height: 50px;
+}
+```
+因为移动端是在企业微信，本身是webkit内核，兼容性完好，可这到了PC端就不行了。另外想到了另一种办法，直接通过after伪类来实现
+```
+.double-row {
+  overflow: hidden;
+  word-break: break-all; //单词折断
+  line-height: 20px;
+  max-height: 40px;
+  position: relative;
+  &::after {
+    content: "...";
+    position: absolute;
+    z-index: 2;
+    background: #fff;
+    top: 0;
+    right: 0;
+    padding-left: 0.5em;
+    margin-top: 20px;
+  }
+}
+```
+但是这种情况仅限于长度大于三行的情况，否则两行时都会显示“...”。  
+同时想到了另一种情况，添加 filter 进行字节判断，当长度大于某个值时，显示...，但是这种情况还需要判断汉字字母数字的个数，同时可能会对原始数据的显示造成问题。最后重新改需求，达成IE情况下统一单行显示。
