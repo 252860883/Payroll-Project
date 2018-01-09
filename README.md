@@ -120,3 +120,7 @@ this.$emit("input", this.realYear + "年" + this.realMonth + "月");
 <din-date v-model="date"></din-date>
 ```
 
+## 8.弹框模糊
+部分居中的弹窗模糊，  分析原因是在居中对齐时，使用了transform:translate(-50%,-50%);如果碰到计算50%的结果刚好是.5像素的时候，会导致Dom内的内容模糊。由于项目是兼容ie11+,所以这里可以使用flex布局实现居中对齐。
+
+
