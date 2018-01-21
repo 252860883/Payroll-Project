@@ -171,4 +171,35 @@ this.$emit("input", this.realYear + "年" + this.realMonth + "月");
 但是这种情况仅限于长度大于三行的情况，否则两行时都会显示“...”。  
 同时想到了另一种情况，添加 filter 进行字节判断，当长度大于某个值时，显示...，但是这种情况还需要判断汉字字母数字的个数，同时可能会对原始数据的显示造成问题。最后重新改需求，达成IE情况下统一单行显示。
 
-## 10.
+## 10.工资表详情页面双击跳到放大页面再返回不强制刷新
+因为从放大页面返回到详情页面是不会有变化的所以不必须要created这些生命周期重新渲染。  
+首先是如何判断当前是在放大页面跳回到详情页而不是其他页面跳转到详情页呢？  
+```js
+//app.vue
+watch: {
+    $route(to, from) {
+      // from 对象中要 router 来源信息
+      sessionStorage.setItem("fromRouter", from.path);
+    }
+  },
+```
+如上，在app.vue中对$route进行watch监听,然后将from.path写入缓存或者直接存入一个全局的变量供其它组件使用。  
+接下来解决强制不刷新问题，用到了 vue中的 keep-alive，上代码
+```js
+//app.vue
+<keep-alive>
+     <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+     <router-view v-if="!$route.meta.keepAlive"></router-view>
+     
+//路由中的配置 
+ {
+    path: '/salarydetail',
+    name: 'salaryDetail',
+    component: resolve => require(['@/page/salaryDetail'], resolve),
+    meta: { keepAlive: true }//添加meta，keepAlive属性
+  }
+```
+注意：keep-alive下就没有正常的created等等周期了，相反是activated和deactivated了
+
+##11.
