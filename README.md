@@ -203,7 +203,7 @@ watch: {
 注意：keep-alive下就没有正常的created等等周期了，相反是activated和deactivated了
 
 ## 11.路由跳转时设置过渡效果，以及过渡时间的设置
-直接在 router-view 外写入transition过渡标签，然后添加mode属性设置，避免过渡时的样式重叠。
+直接在 router-view 外写入transition过渡标签，然后添加mode属性设置，避免过渡时的样式重叠（比如透明度切换时会造成重影）。
 ```js
    //mode: out-in 旧元素执行完过渡再执行新元素过渡 in-out则相反
    <transition name="jump" mode="out-in">
