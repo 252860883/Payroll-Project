@@ -211,4 +211,5 @@ watch: {
    </transition>
 ```
 
-## 12.
+## 12.路由绑定query的值时只能接受基本数据类型 Number、String、Boolean等
+因为过去时要传递一个对象Object格式的，所以造成了传递过去的内容只是[object]，所以在传递的时候需要进行字符串的转化 JSON.stringfy（...）
